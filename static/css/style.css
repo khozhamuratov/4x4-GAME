@@ -1,0 +1,17 @@
+.box{
+    width: 50px;
+    height: 50px;
+    vertical-align: top;
+}
+
+.inner-box-container {
+    margin: 2px;
+}
+
+.container-main {
+    max-width: 480px;
+}
+.bg-success {
+    --bs-bg-opacity: 1;
+    background-color: rgba(var(--bs-success-rgb), var(--bs-bg-opacity)) !important;
+  }
