@@ -6,7 +6,15 @@ let cnt = 0;
 function startGame(){
     console.log("New game was start")
     let numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
-    shuffle(numbers);
+    numbers = shuffle(numbers);
+    if (!isSolvable(numbers)){
+        if (numbers[0] != 16 && numbers[1] != 16){
+            [numbers[0], numbers[1]] = [numbers[1], numbers[0]];
+        } else {
+            [numbers[numbers.length-1], numbers[numbers.length-2]] = [numbers[numbers.length-2], numbers[numbers.length-1]];
+        }
+    };
+
     cnt=0
     document.getElementById("cnt").innerText=cnt
     for(let i=0;i<16;i++){
@@ -44,6 +52,26 @@ function startGame(){
     }
     
     }
+    function isSolvable(numbers){
+        let numberInverions = 0;
+        for (let i = 0; i < numbers.length-1; i++)
+        {    
+            if (numbers[i] == 16) continue;
+            for (let j = i+1; j < numbers.length; j++){
+                if (numbers[i] > numbers[j] && numbers[j] != 16) {
+                    numberInverions++;   
+                }            
+            }
+        }    
+        let index = numbers.indexOf(16);
+        let rowFromBelow = Math.sqrt(numbers.length)-Math.floor(index/4);
+        if (rowFromBelow % 2 != 0){
+            return numberInverions % 2 == 0;
+        } else {
+            return numberInverions % 2 != 0;
+        }
+    }
+    
     function shuffle(array) {
         var currentIndex = array.length,  randomIndex;
         while (currentIndex != 0) {
